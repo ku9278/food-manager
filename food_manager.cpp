@@ -1,11 +1,18 @@
 // 한글 깨짐
-// 입력한 유통기한이 현재 날짜를 지났는지 확인 필요 (유통기한 임박 음식 출력 기능 추가할 때 구현)
+// 유통기한 지난 음식 처리 필요
+//     1. 파일에서 자동적으로 삭제한다
+//         일반적으로 유통기한 하루 이틀 지나도 냉장고에 있는 경우도 있다
+//         따라서 냉장고에는 있지만 파일에는 없는 경우가 발생할 수 있다
+//     2. 음식 처리는 전적으로 사용자에게 맡긴다
+//         유통기한 임박 음식을 출력할 때 이미 지난 음식도 포함시킬지 생각해보아야 한다
+//         프로그램을 시작할 때 유통기한이 지난 음식을 알려줄 수 있다.
 
 #include <iostream>
 #include <string>
 #include <fstream>
 #include <vector>
 #include <limits>
+#include <ctime>
 using namespace std;
 
 /*
@@ -39,8 +46,11 @@ void printFunction(); // 기능 출력하는 함수
 void printFood(vector<FoodInfo> list);
 void addFood(vector<FoodInfo>& list);
 void deleteFood(vector<FoodInfo>& list);
+void printExpiringFood(vector<FoodInfo>& list);
 
 int countDigits(int number); // 자릿수 구하는 함수
+int getCurrentDate(); // 현재 날짜 구하는 함수
+
 
 int main(){
     // 음식 리스트 불러오기
@@ -103,7 +113,7 @@ int main(){
             deleteFood(food_list);
         }
         else if (choice == 4){
-
+            printExpiringFood(food_list);
         }
         else if (choice == 5){
 
@@ -164,6 +174,7 @@ int cinCount(){
 
 int cinDate(){
     int date;
+    int current_date = getCurrentDate();
 
     while(1){
         cout << "유통기한: ";
@@ -176,6 +187,10 @@ int cinDate(){
         }
         if (countDigits(date) != 8){
             cout << "날짜 포맷에 맞춰 입력하십시오(YYYYMMDD)" << endl;
+            continue;
+        }
+        if (date < current_date){
+            cout << "유통기한이 이미 지났습니다" << endl;
             continue;
         }
         break;
@@ -311,6 +326,20 @@ void deleteFood(vector<FoodInfo>& list){
 }
 
 
+void printExpiringFood(vector<FoodInfo>& list){
+    int current_date = getCurrentDate();
+    int threshold = 3; // 유통기한 임박 기준
+
+    // 유통기한 임박 음식 벡터를 생성하여 printFood() 함수로 보내준다
+    vector<FoodInfo> expiring_food_list;
+    for (auto food : list){
+        if (food.date - threshold <= current_date)
+            expiring_food_list.push_back(food);
+    }
+    printFood(expiring_food_list);
+}
+
+
 int countDigits(int number){
     int count = 0;
     while (number != 0) {
@@ -318,5 +347,22 @@ int countDigits(int number){
         count++;
     }
     return count;
+}
+
+
+int getCurrentDate(){
+    int current_date;
+
+    time_t raw_time;
+    struct tm* time_info;
+    raw_time = time(NULL);
+    time_info = localtime(&raw_time);
+
+    int current_y = time_info->tm_year + 1900;
+    int current_m = time_info->tm_mon + 1;
+    int current_d = time_info->tm_mday;
+
+    current_date = current_y*10000 + current_m*100 + current_d;
+    return current_date;
 }
 
