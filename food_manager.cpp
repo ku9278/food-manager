@@ -13,7 +13,10 @@
 #include <vector>
 #include <limits>
 #include <ctime>
+#include "openai.hpp"
 using namespace std;
+
+#undef max
 
 /*
 csv:

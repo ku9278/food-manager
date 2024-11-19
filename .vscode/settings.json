@@ -10,6 +10,7 @@
         "chrono": "cpp",
         "ios": "cpp",
         "ostream": "cpp",
-        "limits": "cpp"
+        "limits": "cpp",
+        "string": "cpp"
     }
 }
