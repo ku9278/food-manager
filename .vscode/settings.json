@@ -11,6 +11,9 @@
         "ios": "cpp",
         "ostream": "cpp",
         "limits": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "format": "cpp",
+        "thread": "cpp",
+        "filesystem": "cpp"
     }
 }
