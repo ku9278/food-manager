@@ -8,9 +8,10 @@
 //         프로그램을 시작할 때 유통기한이 지난 음식을 알려줄 수 있다.
 // 예외처리 더 자세하게
 // 잘못 입력했을 때 돌아갈 수 있는 방법이 필요함
-// 추천 메뉴 퀄리티가 빈약함
 // 함수 정리 필요
 // 음식의 이름이 같은 경우(같은 음식이지만 유통기한이 다른 경우) 처리 필요
+// 음식 이름에 공백 있을 경우 오류 발생
+// 유통기한으로 음식에 가중치를 부여하여 추천 메뉴를 받는것 고려
 
 #include <iostream>
 #include <string>
@@ -73,6 +74,7 @@ int main(){
     string key;
     cout << "openai api key를 입력하시오: ";
     cin >> key;
+    cout << "openai api에 연결합니다" << endl;
     if (!ConnectApi(key)){
         cout << "프로그램을 종료합니다" << endl;
         return 0;
@@ -85,6 +87,7 @@ int main(){
     }
 
     // 음식 리스트 불러오기
+    cout << "음식 목록을 불러옵니다" << endl;
     vector<FoodInfo> food_list = ReadFoodListCsv();
 
     PrintFunctions();
@@ -375,9 +378,21 @@ void PrintExpiringFoods(const vector<FoodInfo>& list){
 
 
 void RecommendMenu(vector<FoodInfo>& list){
-    string system_prompt = "영어로 음식 목록을 입력할테니까 이 음식들로 할 수 있는 요리와 간단한 설명만 한글로 출력해.\
-                            터미널 환경에서 출력될거야. 적절한 구분선을 같이 출력하고 마크다운 문법은 쓰지마.\
-                            밥과 면은 있다고 가정해.";
+    string system_prompt = "당신은 고급 요리 전문가입니다. 주어진 재료를 활용해 대중적이고 복잡한 요리를 제안하십시오.  \
+                            요리는 다음 조건을 충족해야 합니다:  \
+                            1. 대중적이고 유명한 요리를 제안하십시오.  \
+                            2. 추가로 필요한 재료를 제안할 수 있습니다.  \
+                            3. 모든 재료를 활용할 필요는 없습니다.  \
+                            4. 다양한 메인 요리를 제안하십시오.  \
+                            제안된 레시피는 고급 레스토랑이나 요리 경연 대회에서 사용할 수 있는 수준이어야 합니다.  \
+                            요리의 이름, 재료, 간단한 설명만 출력하십시오.  \
+                            터미널 환경에서 출력될 것을 생각해서 마크다운 문법은 사용하지 마시오.  \
+                            출력 포멧:\n\
+                            ----------------------------------------\n\
+                            요리 이름:...\n\
+                            재료:...\n\
+                            설명:...\n\
+                            마지막에 출력 포멧에서 쓰인 구분선을 출력하십시오.";
 
     // 질문 작성
     // 시스템 프롬프트가 적용되어 있으므로 음식 목록만 전달한다
@@ -426,7 +441,7 @@ string GetResponse(string system_prompt, string query){
             {{"role", "user"}, {"content", query}}
         }},
         {"max_tokens", 1000},
-        {"temperature", 0}
+        {"temperature", 1}
     };
     json chat = openai::chat().create(payload);
     string response = chat["choices"][0]["message"]["content"];
