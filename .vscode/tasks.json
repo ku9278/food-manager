@@ -7,9 +7,12 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "${file}",
+                // "${file}",
+                "${fileDirname}\\**.cpp",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "-I", 
+                "${fileDirname}\\include",
                 "-I", 
                 "${fileDirname}\\include\\openai",
                 "-I",
