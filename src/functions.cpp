@@ -22,8 +22,8 @@ void PrintFunctions(){
 
 
 void PrintFoods(const vector<FoodInfo>& list){
-    int max_len = 0; // 이름 최대 길이
-    int max_digits = 0; // 개수 최대 자릿수
+    int max_len = 4; // 이름 최대 길이
+    int max_digits = 4; // 개수 최대 자릿수
     int date_size = 8; // 날짜 길이 (8로 고정)
 
     for (auto& food : list){
@@ -36,6 +36,20 @@ void PrintFoods(const vector<FoodInfo>& list){
         if (digits > max_digits)
             max_digits = digits;
     }
+
+    cout << "|-";
+    for (int i = 0; i < max_len; i++) cout << '-';
+    cout << "-|-";
+    for (int i = 0; i < max_digits; i++) cout << '-';
+    cout << "-|-";
+    for (int i = 0; i < date_size; i++) cout << '-';
+    cout << "-|" << endl;
+
+    cout << "| " << "음식";
+    for (int i = 0; i < max_len - 4; i++) cout << ' ';
+    cout << " | " << "개수";
+    for (int i = 0; i < max_digits - 4; i++) cout << ' ';
+    cout << " | " << "유통기한" << " |" << endl;
 
     cout << "|-";
     for (int i = 0; i < max_len; i++) cout << '-';
