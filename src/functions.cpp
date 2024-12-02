@@ -4,7 +4,7 @@
 #include <vector>
 #include "FoodInfo.hpp"
 #include "constants.hpp"
-#include "inputUtils.hpp"
+#include "ioUtils.hpp"
 #include "openaiUtils.hpp"
 #include "utils.hpp"
 #include "functions.hpp"
@@ -28,7 +28,7 @@ void PrintFoods(const vector<FoodInfo>& list){
 
     for (auto& food : list){
         // 이름 길이
-        int len = food.name.length();
+        int len = GetOutputLength(food.name);
         if (len > max_len)
             max_len = len;
         // 개수 자릿수
@@ -61,7 +61,7 @@ void PrintFoods(const vector<FoodInfo>& list){
 
     for (auto& food : list){
         cout << "| " << food.name;
-        for (int i = 0; i < max_len - food.name.length(); i++) cout << ' ';
+        for (int i = 0; i < max_len - GetOutputLength(food.name); i++) cout << ' ';
         cout << " | " << food.count;
         for (int i = 0; i < max_digits - CountDigits(food.count); i++) cout << ' ';
         cout << " | " << food.date << " |" << endl;
