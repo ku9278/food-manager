@@ -47,7 +47,7 @@ int main(){
     json settings = ReadJson("settings.json");
     string language = settings["language"];
     if (language == ""){
-        SetLanguage();
+        SetLanguage(true);
     }
     else{
         // 언어 팩 불러오기

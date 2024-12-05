@@ -19,12 +19,15 @@ void LoadLanguagePack(string language){
 }
 
 
-void SetLanguage(){
+void SetLanguage(bool init){
     string language;
+    if (init == true) LoadLanguagePack("en");
 
     while (1){
-        cout << language_pack["-language-"] << endl;
-        cout << language_pack["Back"] << endl;
+        if (init != true){
+            cout << language_pack["-language-"] << endl;
+            cout << language_pack["Back"] << endl;
+        }
         cout << "1. English" << endl;
         cout << "2. 한국어" << endl;
 
@@ -39,6 +42,10 @@ void SetLanguage(){
         }
 
         if (choice == 0){
+            if (init == true){
+                cout << language_pack["invalid_input"] << endl;
+                continue;
+            }
             return;
         }
         else if (choice == 1){
@@ -51,6 +58,7 @@ void SetLanguage(){
         }
         else{
             cout << language_pack["invalid_input"] << endl;
+            continue;
         }
     }
 

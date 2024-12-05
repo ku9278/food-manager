@@ -8,6 +8,6 @@ using namespace std;
 extern unordered_map<string, string> language_pack;
 
 void LoadLanguagePack(string language);
-void SetLanguage();
+void SetLanguage(bool init = false);
 
 #endif
