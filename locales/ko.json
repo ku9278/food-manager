@@ -44,7 +44,7 @@
 
     "input_count": "개수: ",
 
-    "input_date": "유통기한: ",
+    "input_date": "유통기한 (YYYYMMDD): ",
     "date_format": "날짜 포맷에 맞춰 입력하십시오 (YYYYMMDD)",
     "date_over": "유통기한이 이미 지났습니다"
 }

@@ -29,7 +29,7 @@ void SetLanguage(bool init){
             cout << language_pack["Back"] << endl;
         }
         cout << "1. English" << endl;
-        cout << "2. 한국어" << endl;
+        cout << "2. Korean" << endl;
 
         int choice;
         cout << language_pack["select"];

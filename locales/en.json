@@ -44,7 +44,7 @@
 
     "input_count": "count: ",
 
-    "input_date": "expiration date: ",
+    "input_date": "expiration date (YYYYMMDD): ",
     "date_format": "Please enter the date in the specified format (YYYYMMDD)",
     "date_over": "The expiration date has passed"
 }
