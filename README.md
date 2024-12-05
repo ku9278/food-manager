@@ -16,8 +16,9 @@ Food Manager is a C++ program designed to help you track and manage foods in you
 ## Using the Application
 1. Obtain an OpenAI API key at https://platform.openai.com/api-keys
 2. Run food_manager.exe
-3. Enter your OpenAI API key when prompted
-4. Navigate through the menu and select the desired feature
+3. Select language
+4. Enter your OpenAI API key
+5. Navigate through the menu and select the desired feature
 
 ### Features
 1. View current foods
