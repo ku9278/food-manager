@@ -2,6 +2,7 @@
 #include <utils.hpp>
 #include <locale>
 #include <codecvt>
+#include <stdexcept>
 
 
 int CountDigits(int number){
@@ -40,4 +41,15 @@ string WstringToString(const wstring& wstr){
 wstring StringToWstring(const string& str){
     wstring_convert<codecvt_utf8<wchar_t>> converter;
     return converter.from_bytes(str);
+}
+
+
+string ReplacePlaceHolders(const string& message, const unordered_map<string, string>& replacements){
+    string result = message;
+    for (const auto& [key, val]: replacements){
+        size_t pos = result.find(key);
+        if (pos == string::npos) throw runtime_error(key + "does not exist");
+        result.replace(pos, key.length(), val);
+    }
+    return result;
 }

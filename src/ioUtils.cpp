@@ -2,6 +2,7 @@
 #include <string>
 #include <limits>
 #include <windows.h>
+#include "language.hpp"
 #include "utils.hpp"
 #include "ioUtils.hpp"
 #undef max
@@ -37,7 +38,7 @@ wstring InputUtf16(size_t bufferSize) {
 string CinName(){
     wstring name_w;
     string name;
-    cout << "음식 이름: ";
+    cout << language_pack["input_food_name"];
     name_w = InputUtf16(256);
     name = WstringToString(name_w);
     return name;
@@ -48,10 +49,10 @@ int CinCount(){
     int count;
 
     while(1){
-        cout << "개수: ";
+        cout << language_pack["input_count"];
         cin >> count;
         if (cin.fail() || cin.peek() != '\n'){
-            cout << "정수를 입력하십시오" << endl;
+            cout << language_pack["input_integer"] << endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             continue;
@@ -68,20 +69,20 @@ int CinDate(){
     int current_date = GetCurrentDate();
 
     while(1){
-        cout << "유통기한: ";
+        cout << language_pack["input_date"];
         cin >> date;
         if (cin.fail() || cin.peek() != '\n'){
-            cout << "날짜 포맷에 맞춰 입력하십시오(YYYYMMDD)" << endl;
+            cout << language_pack["date_format"] << endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             continue;
         }
         if (CountDigits(date) != 8){
-            cout << "날짜 포맷에 맞춰 입력하십시오(YYYYMMDD)" << endl;
+            cout << language_pack["date_format"] << endl;
             continue;
         }
         if (date < current_date){
-            cout << "유통기한이 이미 지났습니다" << endl;
+            cout << language_pack["date_over"] << endl;
             continue;
         }
         break;

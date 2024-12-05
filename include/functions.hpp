@@ -10,5 +10,6 @@ void AddFood(vector<FoodInfo>& list);
 void DeleteFood(vector<FoodInfo>& list);
 void PrintExpiringFoods(const vector<FoodInfo>& list);
 void RecommendMenu(vector<FoodInfo>& list);
+void ChangeSettings();
 
 #endif

@@ -1,0 +1,50 @@
+{
+    "locale": "en_US.UTF-8",
+
+    "input_openai_api_key": "Enter openai api key: ",
+    "connect_openai_api": "Connect to openai api",
+    "load_food_list": "Load the food list",
+    
+    "select_feature": "Select the desired feature (View features: 0): ",
+    "input_integer": "Please enter an integer",
+    "invalid_input": "Invalid input",
+    "exit_program": "Exit the program",
+
+    "file_not_found": "Food list file not found",
+
+    "View_current_foods": "1. View current foods",
+    "Add_a_food": "2. Add a food",
+    "Remove_a_food": "3. Remove a food", 
+    "View_foods_nearing_expiration": "4. View foods nearing expiration",
+    "View_recommended_menu": "5. View recommended menu",
+    "Settings": "6. Settings",
+    "Exit_program": "7. Exit program",
+
+    "food": "food",
+    "count": "count",
+    "date": "expiration date",
+
+    "added": "{count} {name}(s) has(have) been added",
+
+    "count_over": "The entered count exceeds the current count",
+    "not_exists": "The food does not exist",
+    "removed": "{count} {name}(s) has(have) been removed",
+
+    "language": "English",
+
+    "-settings-": "--Settings--",
+    "Back": "0. Back",
+    "Language": "1. Language",
+    "select": "Select: ",
+
+    "-language-": "--Language--",
+    "lang_completed": "Language settings have been completed",
+
+    "input_food_name": "food name: ",
+
+    "input_count": "count: ",
+
+    "input_date": "expiration date: ",
+    "date_format": "Please enter the date in the specified format (YYYYMMDD)",
+    "date_over": "The expiration date has passed"
+}

@@ -1,16 +1,19 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include "nlohmann/json.hpp"
 #include "FoodInfo.hpp"
+#include "language.hpp"
 #include "constants.hpp"
 #include "fileUtils.hpp"
 using namespace std;
+using json = nlohmann::json;
 
 
 bool IsFile(){
-    fstream file(file_dir);
+    fstream file(food_list_dir);
     if (!file.is_open()){
-        cout << "음식 목록 파일을 찾을 수 없습니다" << endl;
+        cout << language_pack["file_not_found"] << endl;
         file.close();
         return false;
     }
@@ -25,7 +28,7 @@ vector<FoodInfo> ReadFoodListCsv(){
     vector<FoodInfo> food_list;
     FoodInfo food;
     string elem;
-    ifstream file(file_dir);
+    ifstream file(food_list_dir);
 
     int i = 0; // while내 인덱스를 위한 변수
     while (file >> elem){
@@ -51,4 +54,17 @@ vector<FoodInfo> ReadFoodListCsv(){
     file.close();
 
     return food_list;
+}
+
+
+json ReadJson(string dir){
+    ifstream json_file(dir);
+    json js = json::parse(json_file);
+    return js;
+}
+
+
+void WriteJson(string dir, json js){
+    ofstream json_file(dir);
+    json_file << js;
 }

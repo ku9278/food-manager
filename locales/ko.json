@@ -1,0 +1,50 @@
+{
+    "locale": "ko_KR.UTF-8",
+
+    "input_openai_api_key": "openai api key를 입력하시오: ",
+    "connect_openai_api": "openai api에 연결합니다",
+    "load_food_list": "음식 목록을 불러옵니다",
+    
+    "select_feature": "사용할 기능을 선택하십시오 (기능 보기: 0): ",
+    "input_integer": "정수를 입력하십시오",
+    "wrong_input": "잘못된 입력입니다",
+    "exit_program": "프로그램을 종료합니다",
+
+    "file_not_found": "음식 목록 파일을 찾을 수 없습니다",
+
+    "View_current_foods": "1. 현재 음식 보기",
+    "Add_a_food": "2. 음식 추가",
+    "Remove_a_food": "3. 음식 제거", 
+    "View_foods_nearing_expiration": "4. 유통기한 임박 음식 보기",
+    "View_recommended_menu": "5. 추천 메뉴 보기",
+    "Settings": "6. 환경설정",
+    "Exit_program": "7. 프로그램 종료",
+
+    "food": "음식",
+    "count": "개수",
+    "date": "유통기한",
+
+    "added": "{name} {count}개가 추가되었습니다",
+
+    "count_over": "입력한 수량이 현재 수량을 초과합니다",
+    "not_exists": "해당 음식이 없습니다",
+    "removed": "{name} {count}개가 제거되었습니다",
+
+    "language": "한글",
+
+    "-settings-": "--환경설정--",
+    "Back": "0. 뒤로가기",
+    "Language": "1. 언어",
+    "select": "선택: ",
+
+    "-language-": "--언어--",
+    "lang_completed": "언어 설정이 완료되었습니다",
+
+    "input_food_name": "음식 이름: ",
+
+    "input_count": "개수: ",
+
+    "input_date": "유통기한: ",
+    "date_format": "날짜 포맷에 맞춰 입력하십시오 (YYYYMMDD)",
+    "date_over": "유통기한이 이미 지났습니다"
+}

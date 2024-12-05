@@ -2,29 +2,34 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include <limits>
+#include <unordered_map>
 #include "FoodInfo.hpp"
+#include "language.hpp"
 #include "constants.hpp"
 #include "ioUtils.hpp"
 #include "openaiUtils.hpp"
 #include "utils.hpp"
 #include "functions.hpp"
+#undef max
 using namespace std;
 
 
 void PrintFunctions(){
-    cout << "1. 현재 음식 보기" << endl;
-    cout << "2. 음식 추가" << endl;
-    cout << "3. 음식 제거" << endl;
-    cout << "4. 유통기한 임박 음식 보기" << endl;
-    cout << "5. 추천 메뉴 보기" << endl;
-    cout << "6. 프로그램 종료" << endl;
+    cout << language_pack["View_current_foods"] << endl;
+    cout << language_pack["Add_a_food"] << endl;
+    cout << language_pack["Remove_a_food"] << endl;
+    cout << language_pack["View_foods_nearing_expiration"] << endl;
+    cout << language_pack["View_recommended_menu"] << endl;
+    cout << language_pack["Settings"] << endl;;
+    cout << language_pack["Exit_program"] << endl;
 }
 
 
 void PrintFoods(const vector<FoodInfo>& list){
-    int max_len = 4; // 이름 최대 길이
-    int max_digits = 4; // 개수 최대 자릿수
-    int date_size = 8; // 날짜 길이 (8로 고정)
+    int max_len = GetOutputLength(language_pack["food"]); // 이름 최대 길이
+    int max_digits = GetOutputLength(language_pack["count"]); // 개수 최대 자릿수
+    int date_size = max(GetOutputLength(language_pack["date"]), 8); // 날짜 길이
 
     for (auto& food : list){
         // 이름 길이
@@ -45,11 +50,13 @@ void PrintFoods(const vector<FoodInfo>& list){
     for (int i = 0; i < date_size; i++) cout << '-';
     cout << "-|" << endl;
 
-    cout << "| " << "음식";
-    for (int i = 0; i < max_len - 4; i++) cout << ' ';
-    cout << " | " << "개수";
-    for (int i = 0; i < max_digits - 4; i++) cout << ' ';
-    cout << " | " << "유통기한" << " |" << endl;
+    cout << "| " << language_pack["food"];
+    for (int i = 0; i < max_len - GetOutputLength(language_pack["food"]); i++) cout << ' ';
+    cout << " | " << language_pack["count"];
+    for (int i = 0; i < max_digits - GetOutputLength(language_pack["count"]); i++) cout << ' ';
+    cout << " | " << language_pack["date"];
+    for (int i = 0; i < date_size - GetOutputLength(language_pack["date"]); i++) cout << ' ';
+    cout << " |" << endl;
 
     cout << "|-";
     for (int i = 0; i < max_len; i++) cout << '-';
@@ -64,7 +71,9 @@ void PrintFoods(const vector<FoodInfo>& list){
         for (int i = 0; i < max_len - GetOutputLength(food.name); i++) cout << ' ';
         cout << " | " << food.count;
         for (int i = 0; i < max_digits - CountDigits(food.count); i++) cout << ' ';
-        cout << " | " << food.date << " |" << endl;
+        cout << " | " << food.date;
+        for (int i = 0; i < date_size - 8; i++) cout << ' ';
+        cout << " |" << endl;
 
         cout << "|-";
         for (int i = 0; i < max_len; i++) cout << '-';
@@ -88,7 +97,7 @@ void AddFood(vector<FoodInfo>& list){
     date = CinDate();
 
     // 파일에 입력
-    ofstream file(file_dir, ios::app);
+    ofstream file(food_list_dir, ios::app);
     file << '\n' << name << ", " << count << ", " << date;
     file.close();
 
@@ -99,7 +108,10 @@ void AddFood(vector<FoodInfo>& list){
     line.date = date;
     list.push_back(line);
 
-    cout << name << " " << count << "개가 추가되었습니다." << endl;
+    unordered_map<string, string> replacements;
+    replacements.insert(make_pair("{name}", name));
+    replacements.insert(make_pair("{count}", to_string(count)));
+    cout << ReplacePlaceHolders(language_pack["added"], replacements) << endl;
 }
 
 
@@ -118,7 +130,7 @@ void DeleteFood(vector<FoodInfo>& list){
         if (name.compare(food.name) == 0){
             // 입력한 수량이 현재 수량보다 많으면 오류 출력
             if (count > food.count){
-                cout << "입력한 수량이 현재 수량을 초과합니다" << endl;
+                cout << language_pack["count_over"] << endl;
                 return;
             }
             else if (count < food.count){
@@ -135,19 +147,22 @@ void DeleteFood(vector<FoodInfo>& list){
 
     // 입력한 음식이 벡터 내에 없으면 오류 출력
     if (iter == list_size){
-        cout << "해당 음식이 없습니다" << endl;
+        cout << language_pack["not_exists"] << endl;
         return;
     }
 
     // 파일에서 제거
     // 제거한 벡터를 파일에 덮어쓰기
-    ofstream file(file_dir);
+    ofstream file(food_list_dir);
     for (auto food : list){
         file << food.name << ", " << food.count << ", " << food.date << '\n';
     }
     file.close();
 
-    cout << name << " " << count << "개가 제거되었습니다." << endl;
+    unordered_map<string, string> replacements;
+    replacements.insert(make_pair("{name}", name));
+    replacements.insert(make_pair("{count}", to_string(count)));
+    cout << ReplacePlaceHolders(language_pack["removed"], replacements) << endl;
 }
 
 
@@ -180,7 +195,9 @@ void RecommendMenu(vector<FoodInfo>& list){
                             요리 이름:...\n\
                             재료:...\n\
                             설명:...\n\
-                            마지막에 출력 포멧에서 쓰인 구분선을 출력하십시오.";
+                            마지막에 출력 포멧에서 쓰인 구분선을 출력하십시오.  \
+                            출력 언어는 " + language_pack["language"] + "입니다.  \
+                            출력 포멧을 포함하여 출력되는 모든 언어를 " + language_pack["language"] + "로 작성하십시오.";
 
     // 질문 작성
     // 시스템 프롬프트가 적용되어 있으므로 음식 목록만 전달한다
@@ -195,4 +212,33 @@ void RecommendMenu(vector<FoodInfo>& list){
 
     // 대답 출력
     cout << response << endl;
+}
+
+
+void ChangeSettings(){
+    while (1){
+        cout << language_pack["-settings-"] << endl;
+        cout << language_pack["Back"] << endl;
+        cout << language_pack["Language"] << endl;
+
+        int choice;
+        cout << language_pack["select"];
+        cin >> choice;
+        if (cin.fail() || cin.peek() != '\n'){
+            cout << language_pack["input_integer"] << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            continue;
+        }
+
+        if (choice == 0){
+            return;
+        }
+        else if (choice == 1){
+            SetLanguage();
+        }
+        else{
+            cout << language_pack["invalid_input"] << endl;
+        }
+    }
 }

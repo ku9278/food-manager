@@ -1,3 +1,18 @@
+// csv 직접 접근 불허 필요
+//     csv를 한번 엑셀로 열면 콤마 사이의 공백이 없어져서 불러올 때 오류가 발생한다.
+// csv말고 txt 사용하는것 고려
+// ReadFoodListCsv 개선 필요 (14_1_FileIO_Exception.pdf)
+// 초기화 기능 필요
+// 정수 입력 리팩토링 필요
+// fileUtils 리팩토링 필요
+//     food_list.csv의 경로를 전역 상수가 아닌 지역 변수로 선언하는것 고려
+//     IsFile() 함수를 다른 파일들에서도 써야함
+// 기능이 실행될 때마다 어떤 기능인지 출력 (설정처럼)
+// settings.json에서 language가 이상한 문자열이면 setlocale에서 오류가 발생할 수 있음
+// 언어에 따른 시간 조정 필요
+// 언어 팩의 키를 모두 심볼이 아닌 영어로 바꾸기
+//     https://www.abctech.software/2015/06/26/i18n-20/
+
 // 유통기한 지난 음식 처리 필요
 //     1. 파일에서 자동적으로 삭제한다
 //         일반적으로 유통기한 하루 이틀 지나도 냉장고에 있는 경우도 있다
@@ -6,60 +21,71 @@
 //         유통기한 임박 음식을 출력할 때 이미 지난 음식도 포함시킬지 생각해보아야 한다
 //         프로그램을 시작할 때 유통기한이 지난 음식을 알려줄 수 있다.
 // 예외처리 더 자세하게
-// 잘못 입력했을 때 돌아갈 수 있는 방법이 필요함
+// 뒤로가기 필요
 // 음식의 이름이 같은 경우(같은 음식이지만 유통기한이 다른 경우) 처리 필요
 // 음식 이름에 공백 있을 경우 오류 발생
 // 유통기한으로 음식에 가중치를 부여하여 추천 메뉴를 받는것 고려
 // 추천 메뉴 출력 시 제외할 음식 목록 필요함(냉장고에 간식이 있을 경우 이런것들을 포함하여 이상한 메뉴가 나올 수 있음)
-// csv 직접 접근 불허 필요
-//     csv를 한번 엑셀로 열면 콤마 사이의 공백이 없어져서 불러올 때 오류가 발생한다.
-// csv말고 txt 사용하는것 고려
-// ReadFoodListCsv 개선 필요 (14_1_FileIO_Exception.pdf)
-// 초기화 기능 필요
+// if-elseif-else 문으로 기능이나 설정을 선택하는 코드 함수화 가능한지 확인할것
+// 칼로리 추가
 
 #include <iostream>
 #include <vector>
 #include <limits>
+#include "nlohmann/json.hpp"
 #include "FoodInfo.hpp"
+#include "language.hpp"
 #include "fileUtils.hpp"
 #include "openaiUtils.hpp"
 #include "functions.hpp"
 #undef max
 using namespace std;
+using json = nlohmann::json;
 
 int main(){
-    // 빌드 파일 실행 시 한글 깨짐 방지
-    setlocale(LC_ALL, "ko_KR.UTF-8");
+    // 설정 불러오기
+    json settings = ReadJson("settings.json");
+    string language = settings["language"];
+    if (language == ""){
+        SetLanguage();
+    }
+    else{
+        // 언어 팩 불러오기
+        LoadLanguagePack(language);
+        // locale 설정
+        string locale = language_pack["locale"];
+        setlocale(LC_ALL, locale.c_str());
+    }
 
     // openai api 연결
     string key;
-    cout << "openai api key를 입력하시오: ";
+    cout << language_pack["input_openai_api_key"];
     cin >> key;
-    cout << "openai api에 연결합니다" << endl;
+    cout << language_pack["connect_openai_api"] << endl;
     if (!ConnectApi(key)){
-        cout << "프로그램을 종료합니다" << endl;
+        cout << language_pack["exit_program"] << endl;
         return 0;
     }
 
     // 파일 존재 확인
     if (!IsFile()){
-        cout << "프로그램을 종료합니다" << endl;
+        cout << language_pack["exit_program"] << endl;
         return 0;
     }
 
     // 음식 리스트 불러오기
-    cout << "음식 목록을 불러옵니다" << endl;
+    cout << language_pack["load_food_list"] << endl;
     vector<FoodInfo> food_list = ReadFoodListCsv();
 
     PrintFunctions();
     while (1){
         // 입력
         int choice; // 사용자 입력을 저장하는 변수
-        cout << "사용할 기능을 선택하십시오(기능 보기: 0): ";
+        cout << language_pack["select_feature"];
 
         cin >> choice;
         if (cin.fail() || cin.peek() != '\n'){
-            cout << "정수를 입력하십시오" << endl;
+            cout << language_pack["input_integer"] << endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             continue;
@@ -84,13 +110,16 @@ int main(){
             RecommendMenu(food_list);
         }
         else if (choice == 6){
+            ChangeSettings();
+        }
+        else if (choice == 7){
             break;
         }
         else{
-            cout << "잘못된 입력입니다" << endl;
+            cout << language_pack["invalid_input"] << endl;
         }
     }
 
-    cout << "프로그램을 종료합니다" << endl;
+    cout << language_pack["exit_program"] << endl;
     return 0;
 }
