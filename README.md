@@ -1,5 +1,8 @@
 # Food Manager
 
+[![Language](https://img.shields.io/badge/language-C++-blue.svg)](https://isocpp.org/)
+[![GitHub version](https://badge.fury.io/gh/ku9278%2FCPP2409-P.svg)](https://github.com/ku9278/CPP2409-P/releases)
+
 ## Manage Your Refrigerator Efficiently
 Food Manager is a C++ program designed to help you track and manage foods in your refrigerator, ensuring nothing goes to waste before its expiration date.
 
