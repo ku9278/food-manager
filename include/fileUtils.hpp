@@ -8,7 +8,7 @@ using namespace std;
 using json = nlohmann::json;
 
 bool IsFile();
-vector<FoodInfo> ReadFoodListCsv();
+vector<FoodInfo> ReadFoodList();
 json ReadJson(string dir);
 void WriteJson(string dir, json js);
 

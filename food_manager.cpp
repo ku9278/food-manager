@@ -75,7 +75,7 @@ int main(){
 
     // 음식 리스트 불러오기
     cout << language_pack["load_food_list"] << endl;
-    vector<FoodInfo> food_list = ReadFoodListCsv();
+    vector<FoodInfo> food_list = ReadFoodList();
 
     PrintFunctions();
     while (1){

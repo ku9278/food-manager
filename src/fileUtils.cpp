@@ -24,33 +24,18 @@ bool IsFile(){
 }
 
 
-vector<FoodInfo> ReadFoodListCsv(){
+vector<FoodInfo> ReadFoodList(){
     vector<FoodInfo> food_list;
-    FoodInfo food;
-    string elem;
-    ifstream file(food_list_dir);
+    ifstream file(food_list_dir, ios::binary);
 
-    int i = 0; // while내 인덱스를 위한 변수
-    while (file >> elem){
-        // ',' 제거
-        size_t pos = elem.find(',');
-        if (pos != string::npos)
-            elem.replace(pos, 1, "");
-        // 요소 저장
-        switch (i % 3){
-            case 0:
-                food.name = elem;
-                break;
-            case 1:
-                food.count = stoi(elem);
-                break;
-            case 2:
-                food.date = stoi(elem);
-                food_list.push_back(food);
-                break;
-        }
-        i += 1;
+    string name;
+    int count;
+    int date;
+    while (file >> name >> count >> date){
+        FoodInfo food = {name, count, date};
+        food_list.push_back(food);
     }
+
     file.close();
 
     return food_list;

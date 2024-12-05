@@ -97,8 +97,8 @@ void AddFood(vector<FoodInfo>& list){
     date = CinDate();
 
     // 파일에 입력
-    ofstream file(food_list_dir, ios::app);
-    file << '\n' << name << ", " << count << ", " << date;
+    ofstream file(food_list_dir, ios::app | ios::binary);
+    file << '\n' << name << " " << count << " " << date;
     file.close();
 
     // 벡터에 추가
@@ -153,9 +153,9 @@ void DeleteFood(vector<FoodInfo>& list){
 
     // 파일에서 제거
     // 제거한 벡터를 파일에 덮어쓰기
-    ofstream file(food_list_dir);
+    ofstream file(food_list_dir, ios::trunc | ios::binary);
     for (auto food : list){
-        file << food.name << ", " << food.count << ", " << food.date << '\n';
+        file << food.name << " " << food.count << " " << food.date << '\n';
     }
     file.close();
 
