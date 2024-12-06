@@ -7,7 +7,7 @@
     
     "select_feature": "사용할 기능을 선택하십시오 (기능 보기: 0): ",
     "input_integer": "정수를 입력하십시오",
-    "wrong_input": "잘못된 입력입니다",
+    "invalid_input": "잘못된 입력입니다",
     "exit_program": "프로그램을 종료합니다",
 
     "file_not_found": "음식 목록 파일을 찾을 수 없습니다",
