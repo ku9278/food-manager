@@ -10,8 +10,6 @@
     "invalid_input": "Invalid input",
     "exit_program": "Exit the program",
 
-    "file_not_found": "Food list file not found",
-
     "View_current_foods": "1. View current foods",
     "Add_a_food": "2. Add a food",
     "Remove_a_food": "3. Remove a food", 

@@ -6,7 +6,6 @@
 #include <unordered_map>
 #include "FoodInfo.hpp"
 #include "language.hpp"
-#include "constants.hpp"
 #include "ioUtils.hpp"
 #include "openaiUtils.hpp"
 #include "utils.hpp"
@@ -86,7 +85,7 @@ void PrintFoods(const vector<FoodInfo>& list){
 }
 
 
-void AddFood(vector<FoodInfo>& list){
+void AddFood(vector<FoodInfo>& list, string file_dir){
     string name;
     int count;
     int date;
@@ -97,7 +96,7 @@ void AddFood(vector<FoodInfo>& list){
     date = CinDate();
 
     // 파일에 입력
-    ofstream file(food_list_dir, ios::app | ios::binary);
+    ofstream file(file_dir, ios::app | ios::binary);
     file << '\n' << name << " " << count << " " << date;
     file.close();
 
@@ -115,7 +114,7 @@ void AddFood(vector<FoodInfo>& list){
 }
 
 
-void DeleteFood(vector<FoodInfo>& list){
+void DeleteFood(vector<FoodInfo>& list, string file_dir){
     string name;
     int count;
 
@@ -153,7 +152,7 @@ void DeleteFood(vector<FoodInfo>& list){
 
     // 파일에서 제거
     // 제거한 벡터를 파일에 덮어쓰기
-    ofstream file(food_list_dir, ios::trunc | ios::binary);
+    ofstream file(file_dir, ios::trunc | ios::binary);
     for (auto food : list){
         file << food.name << " " << food.count << " " << food.date << '\n';
     }

@@ -3,30 +3,34 @@
 #include <vector>
 #include "nlohmann/json.hpp"
 #include "FoodInfo.hpp"
-#include "language.hpp"
-#include "constants.hpp"
 #include "fileUtils.hpp"
 using namespace std;
 using json = nlohmann::json;
 
 
-bool IsFile(){
-    fstream file(food_list_dir);
+// IsFile() 함수는 영어로만 출력
+void IsFile(string file_dir){
+    fstream file(file_dir);
     if (!file.is_open()){
-        cout << language_pack["file_not_found"] << endl;
+        string file_name;
+        size_t pos = file_dir.find_last_of("/");
+        if (pos == string::npos)
+            file_name = file_dir;
+        else
+            file_name = file_dir.substr(pos + 1);
+        
+        cout << file_name << " not found" << endl;
+        cout << "Exit the program" << endl;
         file.close();
-        return false;
+        exit(1);
     }
-    else{
-        file.close();
-        return true;
-    }
+    file.close();
 }
 
 
-vector<FoodInfo> ReadFoodList(){
+vector<FoodInfo> ReadFoodList(string file_dir){
     vector<FoodInfo> food_list;
-    ifstream file(food_list_dir, ios::binary);
+    ifstream file(file_dir, ios::binary);
 
     string name;
     int count;

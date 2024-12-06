@@ -12,6 +12,7 @@ unordered_map<string, string> language_pack;
 void LoadLanguagePack(string language){
     string dir = "locales/.json";
     dir.insert(8, language);
+    IsFile(dir);
     json lang_json = ReadJson(dir);
     for (auto& [key, value] : lang_json.items()) {
         language_pack[key] = value.get<string>();
@@ -62,6 +63,7 @@ void SetLanguage(bool init){
         }
     }
 
+    // 설정 저장
     json settings = ReadJson("settings.json");
     settings["language"] = language;
     WriteJson("settings.json", settings);

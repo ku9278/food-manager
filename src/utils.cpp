@@ -48,7 +48,7 @@ string ReplacePlaceHolders(const string& message, const unordered_map<string, st
     string result = message;
     for (const auto& [key, val]: replacements){
         size_t pos = result.find(key);
-        if (pos == string::npos) throw runtime_error(key + "does not exist");
+        if (pos == string::npos) throw runtime_error(key + " does not exist");
         result.replace(pos, key.length(), val);
     }
     return result;

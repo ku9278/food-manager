@@ -1,8 +1,5 @@
 // 초기화 기능 필요
 // 정수 입력 리팩토링 필요
-// fileUtils 리팩토링 필요
-//     food_list.csv의 경로를 전역 상수가 아닌 지역 변수로 선언하는것 고려
-//     IsFile() 함수를 다른 파일들에서도 써야함
 // 기능이 실행될 때마다 어떤 기능인지 출력 (설정처럼)
 // settings.json에서 language가 이상한 문자열이면 setlocale에서 오류가 발생할 수 있음
 // 언어에 따른 시간 조정 필요
@@ -24,7 +21,7 @@
 // 추천 메뉴 출력 시 제외할 음식 목록 필요함(냉장고에 간식이 있을 경우 이런것들을 포함하여 이상한 메뉴가 나올 수 있음)
 // if-elseif-else 문으로 기능이나 설정을 선택하는 코드 함수화 가능한지 확인할것
 // 칼로리 추가
-
+// 기능 출력 항시 출력되도록 할 수 있는 설정 추가 필요
 // 음식 이름이 설정된 언어랑 다르면 추천 음식을 제대로 출력을 못함
 
 #include <iostream>
@@ -41,8 +38,16 @@ using namespace std;
 using json = nlohmann::json;
 
 int main(){
+    // 파일 경로
+    string food_list_dir = "food_list.bin";
+    string settings_dir = "settings.json";
+
+    // 파일 존재 확인
+    IsFile(food_list_dir);
+    IsFile(settings_dir);
+
     // 설정 불러오기
-    json settings = ReadJson("settings.json");
+    json settings = ReadJson(settings_dir);
     string language = settings["language"];
     if (language == ""){
         SetLanguage(true);
@@ -65,15 +70,9 @@ int main(){
         return 0;
     }
 
-    // 파일 존재 확인
-    if (!IsFile()){
-        cout << language_pack["exit_program"] << endl;
-        return 0;
-    }
-
     // 음식 리스트 불러오기
     cout << language_pack["load_food_list"] << endl;
-    vector<FoodInfo> food_list = ReadFoodList();
+    vector<FoodInfo> food_list = ReadFoodList(food_list_dir);
 
     PrintFunctions();
     while (1){
@@ -96,10 +95,10 @@ int main(){
             PrintFoods(food_list);
         }
         else if (choice == 2){
-            AddFood(food_list);
+            AddFood(food_list, food_list_dir);
         }
         else if (choice == 3){
-            DeleteFood(food_list);
+            DeleteFood(food_list, food_list_dir);
         }
         else if (choice == 4){
             PrintExpiringFoods(food_list);
