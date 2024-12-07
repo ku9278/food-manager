@@ -15,20 +15,20 @@ using namespace std;
 
 
 void PrintFunctions(){
-    cout << language_pack["View_current_foods"] << endl;
-    cout << language_pack["Add_a_food"] << endl;
-    cout << language_pack["Remove_a_food"] << endl;
-    cout << language_pack["View_foods_nearing_expiration"] << endl;
-    cout << language_pack["View_recommended_menu"] << endl;
-    cout << language_pack["Settings"] << endl;;
-    cout << language_pack["Exit_program"] << endl;
+    cout << language_pack["1. View current foods"] << endl;
+    cout << language_pack["2. Add a food"] << endl;
+    cout << language_pack["3. Remove a food"] << endl;
+    cout << language_pack["4. View foods nearing expiration"] << endl;
+    cout << language_pack["5. View recommended menu"] << endl;
+    cout << language_pack["6. Settings"] << endl;;
+    cout << language_pack["7. Exit program"] << endl;
 }
 
 
 void PrintFoods(const vector<FoodInfo>& list){
     int max_len = GetOutputLength(language_pack["food"]); // 이름 최대 길이
     int max_digits = GetOutputLength(language_pack["count"]); // 개수 최대 자릿수
-    int date_size = max(GetOutputLength(language_pack["date"]), 8); // 날짜 길이
+    int date_size = max(GetOutputLength(language_pack["expiration date"]), 8); // 날짜 길이
 
     for (auto& food : list){
         // 이름 길이
@@ -53,8 +53,8 @@ void PrintFoods(const vector<FoodInfo>& list){
     for (int i = 0; i < max_len - GetOutputLength(language_pack["food"]); i++) cout << ' ';
     cout << " | " << language_pack["count"];
     for (int i = 0; i < max_digits - GetOutputLength(language_pack["count"]); i++) cout << ' ';
-    cout << " | " << language_pack["date"];
-    for (int i = 0; i < date_size - GetOutputLength(language_pack["date"]); i++) cout << ' ';
+    cout << " | " << language_pack["expiration date"];
+    for (int i = 0; i < date_size - GetOutputLength(language_pack["expiration date"]); i++) cout << ' ';
     cout << " |" << endl;
 
     cout << "|-";
@@ -110,7 +110,7 @@ void AddFood(vector<FoodInfo>& list, string file_dir){
     unordered_map<string, string> replacements;
     replacements.insert(make_pair("{name}", name));
     replacements.insert(make_pair("{count}", to_string(count)));
-    cout << ReplacePlaceHolders(language_pack["added"], replacements) << endl;
+    cout << ReplacePlaceHolders(language_pack["{count} {name}(s) has(have) been added"], replacements) << endl;
 }
 
 
@@ -129,7 +129,7 @@ void DeleteFood(vector<FoodInfo>& list, string file_dir){
         if (name.compare(food.name) == 0){
             // 입력한 수량이 현재 수량보다 많으면 오류 출력
             if (count > food.count){
-                cout << language_pack["count_over"] << endl;
+                cout << language_pack["The entered count exceeds the current count"] << endl;
                 return;
             }
             else if (count < food.count){
@@ -146,7 +146,7 @@ void DeleteFood(vector<FoodInfo>& list, string file_dir){
 
     // 입력한 음식이 벡터 내에 없으면 오류 출력
     if (iter == list_size){
-        cout << language_pack["not_exists"] << endl;
+        cout << language_pack["The food does not exist"] << endl;
         return;
     }
 
@@ -161,7 +161,7 @@ void DeleteFood(vector<FoodInfo>& list, string file_dir){
     unordered_map<string, string> replacements;
     replacements.insert(make_pair("{name}", name));
     replacements.insert(make_pair("{count}", to_string(count)));
-    cout << ReplacePlaceHolders(language_pack["removed"], replacements) << endl;
+    cout << ReplacePlaceHolders(language_pack["{count} {name}(s) has(have) been removed"], replacements) << endl;
 }
 
 
@@ -216,15 +216,15 @@ void RecommendMenu(vector<FoodInfo>& list){
 
 void ChangeSettings(){
     while (1){
-        cout << language_pack["-settings-"] << endl;
-        cout << language_pack["Back"] << endl;
-        cout << language_pack["Language"] << endl;
+        cout << language_pack["--Settings--"] << endl;
+        cout << language_pack["0. Back"] << endl;
+        cout << language_pack["1. Language"] << endl;
 
         int choice;
-        cout << language_pack["select"];
+        cout << language_pack["Select: "];
         cin >> choice;
         if (cin.fail() || cin.peek() != '\n'){
-            cout << language_pack["input_integer"] << endl;
+            cout << language_pack["Please enter an integer"] << endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             continue;
@@ -237,7 +237,7 @@ void ChangeSettings(){
             SetLanguage();
         }
         else{
-            cout << language_pack["invalid_input"] << endl;
+            cout << language_pack["Invalid input"] << endl;
         }
     }
 }

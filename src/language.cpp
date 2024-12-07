@@ -26,17 +26,17 @@ void SetLanguage(bool init){
 
     while (1){
         if (init != true){
-            cout << language_pack["-language-"] << endl;
-            cout << language_pack["Back"] << endl;
+            cout << language_pack["--Language--"] << endl;
+            cout << language_pack["0. Back"] << endl;
         }
         cout << "1. English" << endl;
         cout << "2. Korean" << endl;
 
         int choice;
-        cout << language_pack["select"];
+        cout << language_pack["Select: "];
         cin >> choice;
         if (cin.fail() || cin.peek() != '\n'){
-            cout << language_pack["input_integer"] << endl;
+            cout << language_pack["Please enter an integer"] << endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             continue;
@@ -44,7 +44,7 @@ void SetLanguage(bool init){
 
         if (choice == 0){
             if (init == true){
-                cout << language_pack["invalid_input"] << endl;
+                cout << language_pack["invalid input"] << endl;
                 continue;
             }
             return;
@@ -58,7 +58,7 @@ void SetLanguage(bool init){
             break;
         }
         else{
-            cout << language_pack["invalid_input"] << endl;
+            cout << language_pack["invalid input"] << endl;
             continue;
         }
     }
@@ -74,5 +74,5 @@ void SetLanguage(bool init){
     string locale = language_pack["locale"];
     setlocale(LC_ALL, locale.c_str());
 
-    cout << language_pack["lang_completed"] << endl;
+    cout << language_pack["Language settings have been completed"] << endl;
 }

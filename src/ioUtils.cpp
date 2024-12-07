@@ -38,7 +38,7 @@ wstring InputUtf16(size_t bufferSize) {
 string CinName(){
     wstring name_w;
     string name;
-    cout << language_pack["input_food_name"];
+    cout << language_pack["food name: "];
     name_w = InputUtf16(256);
     name = WstringToString(name_w);
     return name;
@@ -49,10 +49,10 @@ int CinCount(){
     int count;
 
     while(1){
-        cout << language_pack["input_count"];
+        cout << language_pack["count: "];
         cin >> count;
         if (cin.fail() || cin.peek() != '\n'){
-            cout << language_pack["input_integer"] << endl;
+            cout << language_pack["Please enter an integer"] << endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             continue;
@@ -69,20 +69,20 @@ int CinDate(){
     int current_date = GetCurrentDate();
 
     while(1){
-        cout << language_pack["input_date"];
+        cout << language_pack["expiration date (YYYYMMDD): "];
         cin >> date;
         if (cin.fail() || cin.peek() != '\n'){
-            cout << language_pack["date_format"] << endl;
+            cout << language_pack["Please enter the date in the specified format (YYYYMMDD)"] << endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             continue;
         }
         if (CountDigits(date) != 8){
-            cout << language_pack["date_format"] << endl;
+            cout << language_pack["Please enter the date in the specified format (YYYYMMDD)"] << endl;
             continue;
         }
         if (date < current_date){
-            cout << language_pack["date_over"] << endl;
+            cout << language_pack["The expiration date has passed"] << endl;
             continue;
         }
         break;

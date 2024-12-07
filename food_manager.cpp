@@ -3,8 +3,7 @@
 // 기능이 실행될 때마다 어떤 기능인지 출력 (설정처럼)
 // settings.json에서 language가 이상한 문자열이면 setlocale에서 오류가 발생할 수 있음
 // 언어에 따른 시간 조정 필요
-// 언어 팩의 키를 모두 심볼이 아닌 영어로 바꾸기
-//     https://www.abctech.software/2015/06/26/i18n-20/
+// ConnectApi() 함수 리팩토링 필요
 
 // 유통기한 지난 음식 처리 필요
 //     1. 파일에서 자동적으로 삭제한다
@@ -23,6 +22,8 @@
 // 칼로리 추가
 // 기능 출력 항시 출력되도록 할 수 있는 설정 추가 필요
 // 음식 이름이 설정된 언어랑 다르면 추천 음식을 제대로 출력을 못함
+
+// https://www.abctech.software/2015/06/26/i18n-20/
 
 #include <iostream>
 #include <vector>
@@ -62,27 +63,27 @@ int main(){
 
     // openai api 연결
     string key;
-    cout << language_pack["input_openai_api_key"];
+    cout << language_pack["Enter openai api key: "];
     cin >> key;
-    cout << language_pack["connect_openai_api"] << endl;
+    cout << language_pack["Connect to openai api"] << endl;
     if (!ConnectApi(key)){
-        cout << language_pack["exit_program"] << endl;
+        cout << language_pack["Exit the program"] << endl;
         return 0;
     }
 
     // 음식 리스트 불러오기
-    cout << language_pack["load_food_list"] << endl;
+    cout << language_pack["Load the food list"] << endl;
     vector<FoodInfo> food_list = ReadFoodList(food_list_dir);
 
     PrintFunctions();
     while (1){
         // 입력
         int choice; // 사용자 입력을 저장하는 변수
-        cout << language_pack["select_feature"];
+        cout << language_pack["Select the desired feature (View features: 0): "];
 
         cin >> choice;
         if (cin.fail() || cin.peek() != '\n'){
-            cout << language_pack["input_integer"] << endl;
+            cout << language_pack["Please enter an integer"] << endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             continue;
@@ -113,10 +114,10 @@ int main(){
             break;
         }
         else{
-            cout << language_pack["invalid_input"] << endl;
+            cout << language_pack["Invalid input"] << endl;
         }
     }
 
-    cout << language_pack["exit_program"] << endl;
+    cout << language_pack["Exit the program"] << endl;
     return 0;
 }

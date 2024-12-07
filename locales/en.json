@@ -1,48 +1,47 @@
 {
     "locale": "en_US.UTF-8",
+    "language": "English",
 
-    "input_openai_api_key": "Enter openai api key: ",
-    "connect_openai_api": "Connect to openai api",
-    "load_food_list": "Load the food list",
+    "Enter openai api key: ": "Enter openai api key: ",
+    "Connect to openai api": "Connect to openai api",
+    "Load the food list": "Load the food list",
     
-    "select_feature": "Select the desired feature (View features: 0): ",
-    "input_integer": "Please enter an integer",
-    "invalid_input": "Invalid input",
-    "exit_program": "Exit the program",
+    "Select the desired feature (View features: 0): ": "Select the desired feature (View features: 0): ",
+    "Please enter an integer": "Please enter an integer",
+    "Invalid input": "Invalid input",
+    "Exit the program": "Exit the program",
 
-    "View_current_foods": "1. View current foods",
-    "Add_a_food": "2. Add a food",
-    "Remove_a_food": "3. Remove a food", 
-    "View_foods_nearing_expiration": "4. View foods nearing expiration",
-    "View_recommended_menu": "5. View recommended menu",
-    "Settings": "6. Settings",
-    "Exit_program": "7. Exit program",
+    "1. View current foods": "1. View current foods",
+    "2. Add a food": "2. Add a food",
+    "3. Remove a food": "3. Remove a food", 
+    "4. View foods nearing expiration": "4. View foods nearing expiration",
+    "5. View recommended menu": "5. View recommended menu",
+    "6. Settings": "6. Settings",
+    "7. Exit program": "7. Exit program",
 
     "food": "food",
     "count": "count",
-    "date": "expiration date",
+    "expiration date": "expiration date",
 
-    "added": "{count} {name}(s) has(have) been added",
+    "{count} {name}(s) has(have) been added": "{count} {name}(s) has(have) been added",
 
-    "count_over": "The entered count exceeds the current count",
-    "not_exists": "The food does not exist",
-    "removed": "{count} {name}(s) has(have) been removed",
+    "The entered count exceeds the current count": "The entered count exceeds the current count",
+    "The food does not exist": "The food does not exist",
+    "{count} {name}(s) has(have) been removed": "{count} {name}(s) has(have) been removed",
 
-    "language": "English",
+    "--Settings--": "--Settings--",
+    "0. Back": "0. Back",
+    "1. Language": "1. Language",
+    "Select: ": "Select: ",
 
-    "-settings-": "--Settings--",
-    "Back": "0. Back",
-    "Language": "1. Language",
-    "select": "Select: ",
+    "--Language--": "--Language--",
+    "Language settings have been completed": "Language settings have been completed",
 
-    "-language-": "--Language--",
-    "lang_completed": "Language settings have been completed",
+    "food name: ": "food name: ",
 
-    "input_food_name": "food name: ",
+    "count: ": "count: ",
 
-    "input_count": "count: ",
-
-    "input_date": "expiration date (YYYYMMDD): ",
-    "date_format": "Please enter the date in the specified format (YYYYMMDD)",
-    "date_over": "The expiration date has passed"
+    "expiration date (YYYYMMDD): ": "expiration date (YYYYMMDD): ",
+    "Please enter the date in the specified format (YYYYMMDD)": "Please enter the date in the specified format (YYYYMMDD)",
+    "The expiration date has passed": "The expiration date has passed"
 }
