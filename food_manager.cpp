@@ -1,7 +1,6 @@
 // 초기화 기능 필요
 // 정수 입력 리팩토링 필요
 // 기능이 실행될 때마다 어떤 기능인지 출력 (설정처럼)
-// settings.json에서 language가 이상한 문자열이면 setlocale에서 오류가 발생할 수 있음
 // 언어에 따른 시간 조정 필요
 // ConnectApi() 함수 리팩토링 필요
 
@@ -66,10 +65,7 @@ int main(){
     cout << language_pack["Enter openai api key: "];
     cin >> key;
     cout << language_pack["Connect to openai api"] << endl;
-    if (!ConnectApi(key)){
-        cout << language_pack["Exit the program"] << endl;
-        return 0;
-    }
+    ConnectApi(key);
 
     // 음식 리스트 불러오기
     cout << language_pack["Load the food list"] << endl;

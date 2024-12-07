@@ -4,7 +4,7 @@
 #include <string>
 using namespace std;
 
-bool ConnectApi(string key);
+void ConnectApi(string key);
 string GetResponse(string system_prompt, string query);
 
 #endif

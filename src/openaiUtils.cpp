@@ -2,12 +2,13 @@
 #include <string>
 #include "openai.hpp"
 #include "nlohmann/json.hpp"
+#include "language.hpp"
 #include "openaiUtils.hpp"
 using namespace std;
 using json = nlohmann::json;
 
 
-bool ConnectApi(string key){
+void ConnectApi(string key){
     // api 연결
     // 인터넷 연결이 없으면 예외를 발생시킨다
     // 잘못된 key를 입력하면 예외를 발생시킨다.
@@ -24,9 +25,9 @@ bool ConnectApi(string key){
     }
     catch(runtime_error const& e){
         cerr << e.what() << endl;
-        return false;
+        cout << language_pack["Exit the program"];
+        exit(1);
     }
-    return true;
 }
 
 
