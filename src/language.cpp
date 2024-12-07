@@ -2,6 +2,7 @@
 #include <limits>
 #include "nlohmann/json.hpp"
 #include "language.hpp"
+#include "ioUtils.hpp"
 #include "fileUtils.hpp"
 #undef max
 using namespace std;
@@ -33,15 +34,7 @@ void SetLanguage(bool init){
         cout << "2. Korean" << endl;
 
         int choice;
-        cout << language_pack["Select: "];
-        cin >> choice;
-        if (cin.fail() || cin.peek() != '\n'){
-            cout << language_pack["Please enter an integer"] << endl;
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            continue;
-        }
-
+        choice = CinInteger(language_pack["Select: "]);
         if (choice == 0){
             if (init == true){
                 cout << language_pack["invalid input"] << endl;

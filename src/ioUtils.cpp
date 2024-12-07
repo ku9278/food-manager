@@ -45,11 +45,11 @@ string CinName(){
 }
 
 
-int CinCount(){
+int CinInteger(string message){
     int count;
 
     while(1){
-        cout << language_pack["count: "];
+        cout << message;
         cin >> count;
         if (cin.fail() || cin.peek() != '\n'){
             cout << language_pack["Please enter an integer"] << endl;

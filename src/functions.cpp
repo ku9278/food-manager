@@ -92,7 +92,7 @@ void AddFood(vector<FoodInfo>& list, string file_dir){
 
     // 사용자 입력 받기
     name = CinName();
-    count = CinCount();
+    count = CinInteger(language_pack["count: "]);
     date = CinDate();
 
     // 파일에 입력
@@ -120,7 +120,7 @@ void DeleteFood(vector<FoodInfo>& list, string file_dir){
 
     // 사용자 입력 받기
     name = CinName();
-    count = CinCount();
+    count = CinInteger(language_pack["count: "]);
 
     // 벡터에서 제거
     vector<FoodInfo>::iterator iter = list.begin();
@@ -221,15 +221,7 @@ void ChangeSettings(){
         cout << language_pack["1. Language"] << endl;
 
         int choice;
-        cout << language_pack["Select: "];
-        cin >> choice;
-        if (cin.fail() || cin.peek() != '\n'){
-            cout << language_pack["Please enter an integer"] << endl;
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            continue;
-        }
-
+        choice = CinInteger(language_pack["Select: "]);
         if (choice == 0){
             return;
         }

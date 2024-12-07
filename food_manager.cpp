@@ -1,8 +1,6 @@
 // 초기화 기능 필요
-// 정수 입력 리팩토링 필요
 // 기능이 실행될 때마다 어떤 기능인지 출력 (설정처럼)
 // 언어에 따른 시간 조정 필요
-// ConnectApi() 함수 리팩토링 필요
 
 // 유통기한 지난 음식 처리 필요
 //     1. 파일에서 자동적으로 삭제한다
@@ -30,6 +28,7 @@
 #include "nlohmann/json.hpp"
 #include "FoodInfo.hpp"
 #include "language.hpp"
+#include "ioUtils.hpp"
 #include "fileUtils.hpp"
 #include "openaiUtils.hpp"
 #include "functions.hpp"
@@ -75,16 +74,7 @@ int main(){
     while (1){
         // 입력
         int choice; // 사용자 입력을 저장하는 변수
-        cout << language_pack["Select the desired feature (View features: 0): "];
-
-        cin >> choice;
-        if (cin.fail() || cin.peek() != '\n'){
-            cout << language_pack["Please enter an integer"] << endl;
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            continue;
-        }
-
+        choice = CinInteger(language_pack["Select the desired feature (View features: 0): "]);
         if (choice == 0){
             PrintFunctions();
         }
