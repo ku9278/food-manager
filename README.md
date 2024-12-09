@@ -29,7 +29,6 @@ Food Manager is a C++ program designed to help you track and manage foods in you
 3. Remove a food
 4. View foods nearing expiration
 5. View recommended menu
-6. Exit program
 
 #### View Recommended Menu
 The program uses OpenAI's GPT-4o-mini model to analyze the foods in your refrigerator and provide creative meal ideas, helping you make the best use of your ingredients.
