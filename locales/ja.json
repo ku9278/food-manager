@@ -1,0 +1,47 @@
+{
+    "locale": "ja_JP.UTF-8",
+    "language": "日本語",
+
+    "Enter openai api key: ": "openai api keyを入力してください: ",
+    "Connect to openai api": "openai apiに接続します",
+    "Load the food list": "食品リストを読み込みます",
+
+    "Select the desired feature (View features: 0): ": "使用する機能を選択してください (機能を見る: 0): ",
+    "Please enter an integer": "整数を入力してください",
+    "Invalid input": "無効な入力です",
+    "Exit the program": "プログラムを終了します",
+
+    "1. View current foods": "1. 現在の食品を見る",
+    "2. Add a food": "2. 食品を追加する",
+    "3. Remove a food": "3. 食品を削除する",
+    "4. View foods nearing expiration": "4. 賞味期限が近い食品を見る",
+    "5. View recommended menu": "5. 推奨メニューを見る",
+    "6. Settings": "6. 設定",
+    "7. Exit program": "7. プログラムを終了する",
+
+    "food": "食品",
+    "count": "数量",
+    "expiration date": "賞味期限",
+
+    "{count} {name}(s) has(have) been added": "{name}が{count}個追加されました",
+
+    "The entered count exceeds the current count": "入力した数量が現在の数量を超えています",
+    "The food does not exist": "該当する食品が存在しません",
+    "{count} {name}(s) has(have) been removed": "{name}が{count}個削除されました",
+
+    "--Settings--": "--設定--",
+    "0. Back": "0. 戻る",
+    "1. Language": "1. 言語",
+    "Select: ": "選択: ",
+
+    "--Language--": "--言語--",
+    "Language settings have been completed": "言語設定が完了しました",
+
+    "food name: ": "食品名: ",
+
+    "count: ": "数量: ",
+
+    "expiration date (YYYYMMDD): ": "賞味期限 (YYYYMMDD): ",
+    "Please enter the date in the specified format (YYYYMMDD)": "指定された形式で日付を入力してください (YYYYMMDD)",
+    "The expiration date has passed": "賞味期限が過ぎています"
+}

@@ -52,9 +52,7 @@ int main(){
         SetLanguage(true);
     }
     else{
-        // 언어 팩 불러오기
         LoadLanguagePack(language);
-        // locale 설정
         string locale = language_pack["locale"];
         setlocale(LC_ALL, locale.c_str());
     }

@@ -32,6 +32,7 @@ void SetLanguage(bool init){
         }
         cout << "1. English" << endl;
         cout << "2. Korean" << endl;
+        cout << "3. Japanese" << endl;
 
         int choice;
         choice = CinInteger(language_pack["Select: "]);
@@ -48,6 +49,10 @@ void SetLanguage(bool init){
         }
         else if (choice == 2){
             language = "ko";
+            break;
+        }
+        else if (choice == 3){
+            language = "ja";
             break;
         }
         else{
