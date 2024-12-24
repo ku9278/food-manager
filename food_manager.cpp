@@ -41,7 +41,7 @@
 #include "ioUtils.hpp"
 #include "fileUtils.hpp"
 #include "openaiUtils.hpp"
-#include "functions.hpp"
+#include "features.hpp"
 #undef max
 using namespace std;
 using json = nlohmann::json;

@@ -9,7 +9,7 @@
 #include "ioUtils.hpp"
 #include "openaiUtils.hpp"
 #include "utils.hpp"
-#include "functions.hpp"
+#include "features.hpp"
 #undef max
 using namespace std;
 

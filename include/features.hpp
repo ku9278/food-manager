@@ -1,5 +1,5 @@
-#ifndef FUNSTIONS_HPP
-#define FUNSTIONS_HPP
+#ifndef FEATURES_HPP
+#define FEATURES_HPP
 
 #include <vector>
 #include "FoodInfo.hpp"
