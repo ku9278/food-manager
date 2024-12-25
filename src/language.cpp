@@ -31,8 +31,8 @@ void SetLanguage(bool init){
             cout << language_pack["0. Back"] << endl;
         }
         cout << "1. English" << endl;
-        cout << "2. Korean" << endl;
-        cout << "3. Japanese" << endl;
+        cout << "2. Japanese" << endl;
+        cout << "3. Korean" << endl;
 
         int choice;
         choice = CinInteger(language_pack["Select: "]);
@@ -48,11 +48,11 @@ void SetLanguage(bool init){
             break;
         }
         else if (choice == 2){
-            language = "ko";
+            language = "ja";
             break;
         }
         else if (choice == 3){
-            language = "ja";
+            language = "ko";
             break;
         }
         else{
@@ -62,9 +62,9 @@ void SetLanguage(bool init){
     }
 
     // 설정 저장
-    json settings = ReadJson("settings.json");
+    json settings = ReadJson(settings_dir);
     settings["language"] = language;
-    WriteJson("settings.json", settings);
+    WriteJson(settings_dir, settings);
 
     // 언어 팩 불러오기
     LoadLanguagePack(language);

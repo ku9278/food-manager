@@ -32,6 +32,7 @@
     "--Settings--": "--Settings--",
     "0. Back": "0. Back",
     "1. Language": "1. Language",
+    "2. Initialization": "2. Initialization",
     "Select: ": "Select: ",
 
     "--Language--": "--Language--",
@@ -43,5 +44,9 @@
 
     "expiration date (YYYYMMDD): ": "expiration date (YYYYMMDD): ",
     "Please enter the date in the specified format (YYYYMMDD)": "Please enter the date in the specified format (YYYYMMDD)",
-    "The expiration date has passed": "The expiration date has passed"
+    "The expiration date has passed": "The expiration date has passed",
+
+    "Settings and food lists will be initialized": "Settings and food lists will be initialized",
+    "Are you sure you want to initialize the program? [y/n]": "Are you sure you want to initialize the program? [y/n]",
+    "Initialization completed": "Initialization completed"
 }

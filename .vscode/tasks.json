@@ -14,7 +14,7 @@
                 "-I", 
                 "${fileDirname}\\include",
                 "-I", 
-                "${fileDirname}\\include\\openai",
+                "${fileDirname}\\openai",
                 "-I",
                 "${fileDirname}\\curl-8.11.0_1-win64-mingw\\include",
                 "-L",

@@ -8,6 +8,7 @@
 #include "language.hpp"
 #include "ioUtils.hpp"
 #include "openaiUtils.hpp"
+#include "settings.hpp"
 #include "utils.hpp"
 #include "features.hpp"
 #undef max
@@ -219,6 +220,7 @@ void ChangeSettings(){
         cout << language_pack["--Settings--"] << endl;
         cout << language_pack["0. Back"] << endl;
         cout << language_pack["1. Language"] << endl;
+        cout << language_pack["2. Initialization"] << endl;
 
         int choice;
         choice = CinInteger(language_pack["Select: "]);
@@ -227,6 +229,9 @@ void ChangeSettings(){
         }
         else if (choice == 1){
             SetLanguage();
+        }
+        else if (choice == 2){
+            Initialize();
         }
         else{
             cout << language_pack["Invalid input"] << endl;

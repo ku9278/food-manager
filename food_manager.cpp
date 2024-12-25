@@ -1,4 +1,3 @@
-// 초기화 기능 필요
 // 기능이 실행될 때마다 어떤 기능인지 출력 (설정처럼)
 // 언어에 따른 시간 조정 필요
 // openai api를 사용할 수 없을 때 처리 필요
@@ -37,6 +36,7 @@
 #include <limits>
 #include "nlohmann/json.hpp"
 #include "FoodInfo.hpp"
+#include "foodList.hpp"
 #include "language.hpp"
 #include "ioUtils.hpp"
 #include "fileUtils.hpp"
@@ -46,11 +46,12 @@
 using namespace std;
 using json = nlohmann::json;
 
-int main(){
-    // 파일 경로
-    string food_list_dir = "food_list.bin";
-    string settings_dir = "settings.json";
+// const string food_list_dir <- fileUtils.hpp
+// const string settings_dir <- fileUtils.hpp
+// unordered_map<string, string> language_pack <- language.hpp
+// vector<FoodInfo> food_list <- foodList.hpp
 
+int main(){
     // 파일 존재 확인
     IsFile(food_list_dir);
     IsFile(settings_dir);
@@ -76,7 +77,7 @@ int main(){
 
     // 음식 리스트 불러오기
     cout << language_pack["Load the food list"] << endl;
-    vector<FoodInfo> food_list = ReadFoodList(food_list_dir);
+    ReadFoodList();
 
     PrintFunctions();
     while (1){

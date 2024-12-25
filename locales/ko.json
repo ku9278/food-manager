@@ -32,6 +32,7 @@
     "--Settings--": "--환경설정--",
     "0. Back": "0. 뒤로가기",
     "1. Language": "1. 언어",
+    "2. Initialization": "2. 초기화",
     "Select: ": "선택: ",
 
     "--Language--": "--언어--",
@@ -43,5 +44,9 @@
 
     "expiration date (YYYYMMDD): ": "유통기한 (YYYYMMDD): ",
     "Please enter the date in the specified format (YYYYMMDD)": "날짜 포맷에 맞춰 입력하십시오 (YYYYMMDD)",
-    "The expiration date has passed": "유통기한이 이미 지났습니다"
+    "The expiration date has passed": "유통기한이 이미 지났습니다",
+
+    "Settings and food lists will be initialized": "설정과 음식 목록이 초기화됩니다",
+    "Are you sure you want to initialize the program? [y/n]": "프로그램을 초기화하시겠습니까? [y/n]",
+    "Initialization completed": "초기화가 완료되었습니다."
 }

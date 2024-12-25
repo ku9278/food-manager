@@ -28,24 +28,6 @@ void IsFile(string file_dir){
 }
 
 
-vector<FoodInfo> ReadFoodList(string file_dir){
-    vector<FoodInfo> food_list;
-    ifstream file(file_dir, ios::binary);
-
-    string name;
-    int count;
-    int date;
-    while (file >> name >> count >> date){
-        FoodInfo food = {name, count, date};
-        food_list.push_back(food);
-    }
-
-    file.close();
-
-    return food_list;
-}
-
-
 json ReadJson(string dir){
     ifstream json_file(dir);
     json js = json::parse(json_file);

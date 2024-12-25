@@ -32,6 +32,7 @@
     "--Settings--": "--設定--",
     "0. Back": "0. 戻る",
     "1. Language": "1. 言語",
+    "2. Initialization": "2. 初期化",
     "Select: ": "選択: ",
 
     "--Language--": "--言語--",
@@ -43,5 +44,9 @@
 
     "expiration date (YYYYMMDD): ": "賞味期限 (YYYYMMDD): ",
     "Please enter the date in the specified format (YYYYMMDD)": "指定された形式で日付を入力してください (YYYYMMDD)",
-    "The expiration date has passed": "賞味期限が過ぎています"
+    "The expiration date has passed": "賞味期限が過ぎています",
+
+    "Settings and food lists will be initialized": "設定と食品リストが初期化されます",
+    "Are you sure you want to initialize the program? [y/n]": "プログラムを初期化してもよろしいですか? [y/n]",
+    "Initialization completed": "初期化が完了しました"
 }
