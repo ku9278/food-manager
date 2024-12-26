@@ -35,13 +35,13 @@
 #include <vector>
 #include <limits>
 #include "nlohmann/json.hpp"
+#include "features.hpp"
+#include "fileUtils.hpp"
 #include "FoodInfo.hpp"
 #include "foodList.hpp"
-#include "language.hpp"
 #include "ioUtils.hpp"
-#include "fileUtils.hpp"
+#include "language.hpp"
 #include "openaiUtils.hpp"
-#include "features.hpp"
 #undef max
 using namespace std;
 using json = nlohmann::json;
@@ -91,16 +91,16 @@ int main(){
             PrintFoods(food_list);
         }
         else if (choice == 2){
-            AddFood(food_list, food_list_dir);
+            AddFood();
         }
         else if (choice == 3){
-            DeleteFood(food_list, food_list_dir);
+            DeleteFood();
         }
         else if (choice == 4){
-            PrintExpiringFoods(food_list);
+            PrintExpiringFoods();
         }
         else if (choice == 5){
-            RecommendMenu(food_list);
+            RecommendMenu();
         }
         else if (choice == 6){
             ChangeSettings();

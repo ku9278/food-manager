@@ -4,13 +4,15 @@
 #include <vector>
 #include <limits>
 #include <unordered_map>
+#include "features.hpp"
+#include "fileUtils.hpp"
 #include "FoodInfo.hpp"
-#include "language.hpp"
+#include "foodList.hpp"
 #include "ioUtils.hpp"
+#include "language.hpp"
 #include "openaiUtils.hpp"
 #include "settings.hpp"
 #include "utils.hpp"
-#include "features.hpp"
 #undef max
 using namespace std;
 
@@ -86,7 +88,7 @@ void PrintFoods(const vector<FoodInfo>& list){
 }
 
 
-void AddFood(vector<FoodInfo>& list, string file_dir){
+void AddFood(){
     string name;
     int count;
     int date;
@@ -97,7 +99,7 @@ void AddFood(vector<FoodInfo>& list, string file_dir){
     date = CinDate();
 
     // 파일에 입력
-    ofstream file(file_dir, ios::app | ios::binary);
+    ofstream file(food_list_dir, ios::app | ios::binary);
     file << '\n' << name << " " << count << " " << date;
     file.close();
 
@@ -106,7 +108,7 @@ void AddFood(vector<FoodInfo>& list, string file_dir){
     line.name = name;
     line.count = count;
     line.date = date;
-    list.push_back(line);
+    food_list.push_back(line);
 
     unordered_map<string, string> replacements;
     replacements.insert(make_pair("{name}", name));
@@ -115,7 +117,7 @@ void AddFood(vector<FoodInfo>& list, string file_dir){
 }
 
 
-void DeleteFood(vector<FoodInfo>& list, string file_dir){
+void DeleteFood(){
     string name;
     int count;
 
@@ -124,9 +126,9 @@ void DeleteFood(vector<FoodInfo>& list, string file_dir){
     count = CinInteger(language_pack["count: "]);
 
     // 벡터에서 제거
-    vector<FoodInfo>::iterator iter = list.begin();
-    vector<FoodInfo>::iterator list_size = list.end();
-    for (auto& food : list){
+    vector<FoodInfo>::iterator iter = food_list.begin();
+    vector<FoodInfo>::iterator list_size = food_list.end();
+    for (auto& food : food_list){
         if (name.compare(food.name) == 0){
             // 입력한 수량이 현재 수량보다 많으면 오류 출력
             if (count > food.count){
@@ -138,7 +140,7 @@ void DeleteFood(vector<FoodInfo>& list, string file_dir){
                 break;
             }
             else{ // count == food.count
-                list.erase(iter);
+                food_list.erase(iter);
                 break;
             }
         }
@@ -153,8 +155,8 @@ void DeleteFood(vector<FoodInfo>& list, string file_dir){
 
     // 파일에서 제거
     // 제거한 벡터를 파일에 덮어쓰기
-    ofstream file(file_dir, ios::trunc | ios::binary);
-    for (auto food : list){
+    ofstream file(food_list_dir, ios::trunc | ios::binary);
+    for (auto food : food_list){
         file << food.name << " " << food.count << " " << food.date << '\n';
     }
     file.close();
@@ -166,13 +168,13 @@ void DeleteFood(vector<FoodInfo>& list, string file_dir){
 }
 
 
-void PrintExpiringFoods(const vector<FoodInfo>& list){
+void PrintExpiringFoods(){
     int current_date = GetCurrentDate();
     int threshold = 3; // 유통기한 임박 기준
 
     // 유통기한 임박 음식 벡터를 생성하여 PrintFood() 함수로 보내준다
     vector<FoodInfo> expiring_food_list;
-    for (auto food : list){
+    for (auto food : food_list){
         if (food.date - threshold <= current_date)
             expiring_food_list.push_back(food);
     }
@@ -180,7 +182,7 @@ void PrintExpiringFoods(const vector<FoodInfo>& list){
 }
 
 
-void RecommendMenu(vector<FoodInfo>& list){
+void RecommendMenu(){
     string system_prompt = "당신은 고급 요리 전문가입니다. 주어진 재료를 활용해 대중적이고 복잡한 요리를 제안하십시오.  \
                             요리는 다음 조건을 충족해야 합니다:  \
                             1. 대중적이고 유명한 요리를 제안하십시오.  \
@@ -202,7 +204,7 @@ void RecommendMenu(vector<FoodInfo>& list){
     // 질문 작성
     // 시스템 프롬프트가 적용되어 있으므로 음식 목록만 전달한다
     string query;
-    for (auto food : list){
+    for (auto food : food_list){
         query += food.name;
         query += " ";
     }
